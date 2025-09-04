@@ -64,6 +64,9 @@ annotationDatabases <- function(genome = genome,
                                genome == "TAIR9" ~ c("BSgenome.Athaliana.TAIR.TAIR9",
                                                      "TxDb.Athaliana.BioMart.plantsmart28",
                                                      "org.At.tair.db")
+                               genome == "LR1" ~ c("BSgenome.Lrhomboides.NCBI.Lrho1.0",
+                                                   "",
+                                                   "org.Lrhomboides.eg.db")
   )
   
   new.packages <- packages[!(packages %in% installed.packages()[,"Package"])]
