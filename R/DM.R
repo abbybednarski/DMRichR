@@ -87,7 +87,7 @@ DM.R <- function(genome = c("hg38", "hg19", "mm10", "mm9", "rheMac10",
   stopifnot(genome %in% c("hg38", "hg19", "mm10", "mm9", "rheMac10",
                           "rheMac8", "rn6", "danRer11", "galGal6",
                           "bosTau9", "panTro6", "dm6", "susScr11",
-                          "canFam3", "TAIR10", "TAIR9"))
+                          "canFam3", "TAIR10", "TAIR9", "LR1"))
   stopifnot(!is.null(testCovariate))
   stopifnot(coverage >= 1)
   
