@@ -63,7 +63,10 @@ annotationDatabases <- function(genome = genome,
                                                       "org.At.tair.db"),
                                genome == "TAIR9" ~ c("BSgenome.Athaliana.TAIR.TAIR9",
                                                      "TxDb.Athaliana.BioMart.plantsmart28",
-                                                     "org.At.tair.db")
+                                                     "org.At.tair.db"),
+                               genome == "LR1" ~ c("BSgenome.Lrhomboides.NCBI.Lrho1.0",
+                                                   "org.Lrhomboides.eg.db",
+                                                   "TxDb.Lrhomboides.MAKER.gff3")
   )
   
   new.packages <- packages[!(packages %in% installed.packages()[,"Package"])]
@@ -135,6 +138,10 @@ annotationDatabases <- function(genome = genome,
     assign("goi", BSgenome.Athaliana.TAIR.TAIR9, envir = parent.frame())
     assign("TxDb", TxDb.Athaliana.BioMart.plantsmart28, envir = parent.frame())
     assign("annoDb", "org.At.tair.db", envir = parent.frame())
+  }else if(genome == "LR1"){
+    assign("goi", BSgenome.Lrhomboides.NCBI.Lrho1.0, envir = parent.frame())
+    assign("TxDb", TxDb.Lrhomboides.MAKER.gff3, envir = parent.frame())
+    assign("annoDb", "org.Lrhomboides.eg.db", envir = parent.frame())
   }else{
     stop(glue::glue("{genome} is not supported, please choose either hg38, hg19, mm10, mm9, \\
     rheMac10, rheMac8, rn6, danRer11, galGal6, bosTau9, panTro6, dm6, susScr11, canFam3, TAIR10, \\
