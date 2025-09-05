@@ -249,11 +249,12 @@ getCpGs <- function(genome = genome){
   
   message('Building CpG islands...')
   
-  islands <- readr::read_tsv(glue::glue("http://hgdownload.cse.ucsc.edu/goldenpath/{genome}/database/cpgIslandExt.txt.gz"),
-                             col_names = c('chr','start','end'),
-                             col_types = '-cii-------') %>%
+  islands <- readr::read_tsv(glue::glue("/Users/abbybednarski/Downloads/Lrhomboides_CpG_islands_28.txt.gz"),
+                             skip = 1,
+                             col_names = c('Sequence','Begin','End','Score','CpG','PercCG','CG_GC'),
+                             col_types = cols()) %>%
     GenomicRanges::makeGRangesFromDataFrame(keep.extra.columns = TRUE) %>%
-    GenomeInfoDb::keepStandardChromosomes(pruning.mode = "coarse") %>%
+    #GenomeInfoDb::keepStandardChromosomes(pruning.mode = "coarse") %>%
     plyranges::mutate(id = glue::glue("island:{seq_along(.)}"),
                       type = "islands")
   
