@@ -46,6 +46,11 @@ processBismark <- function(files = list.files(path = getwd(), pattern = "\\.CpG_
   sample_ids <- sub("_bismark_bt2_pe.*", "", basename(files))
   files.idx <- match(meta$Name, sample_ids)
   files <- files[files.idx]
+
+   #Check for mismatches
+if (any(is.na(files.idx))) stop("Some meta$Name samples do not match files.")
+if (anyDuplicated(files)) stop("Duplicate files after matching. Check meta$Name.")
+  
   #names <- as.data.frame(gsub( "_.*$","", files[files.idx])) # For colData, but jumbles file order with parallel processing
   #colnames(names) <- "Name"
   #rownames(names) <- names[,1]
