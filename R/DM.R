@@ -144,9 +144,13 @@ DM.R <- function(genome = c("hg38", "hg19", "mm10", "mm9", "rheMac10",
 
   files <- list.files(
     path = getwd(),
-    pattern = "_bismark_bt2_pe.deduplicated_cytosine_report.CpG_report.txt.gz$",
+    pattern = ".CpG_report.txt.gz$",
     full.names = TRUE)
 
+  if(length(files) == 0){
+    stop("No CpG report files found. Check your working directory and pattern.")
+    }
+  
   meta <- read.xlsx("sample_info.xlsx", colNames = TRUE) %>%
          dplyr::mutate_if(is.character, as.factor)
 
