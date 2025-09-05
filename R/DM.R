@@ -143,7 +143,7 @@ DM.R <- function(genome = c("hg38", "hg19", "mm10", "mm9", "rheMac10",
   # Load and process samples ------------------------------------------------
   
   bs.filtered <- DMRichR::processBismark(files = list.files(path = getwd(),
-                                                            pattern = "*.CpG_report.txt.gz"),
+                                                            pattern = "CpG_report\\.txt\\.gz$", full.names = TRUE),
                                          meta = openxlsx::read.xlsx("sample_info.xlsx",
                                                                     colNames = TRUE) %>%
                                            dplyr::mutate_if(is.character, as.factor),
