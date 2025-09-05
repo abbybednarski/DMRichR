@@ -1,4 +1,4 @@
-Package: DMRichR
+Package: DMRichR_custom
 Title: Enrich your DMR Analysis with the Tidyverse
 Version: 1.7.8
 Authors@R: c(
