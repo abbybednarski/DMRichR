@@ -141,12 +141,14 @@ DM.R <- function(genome = c("hg38", "hg19", "mm10", "mm9", "rheMac10",
   #load("RData/settings.RData")
   
   # Load and process samples ------------------------------------------------
+
+  files <- list.files(pattern = "_bismark_bt2_pe.deduplicated_cytosine_report.CpG_report.txt.gz$", full.names = TRUE)
+
+  meta <- read.xlsx("sample_info.xlsx", colNames = TRUE) %>%
+        mutate_if(is.character, as.factor)
   
-  bs.filtered <- DMRichR::processBismark(files = list.files(path = getwd(),
-                                                            pattern = "CpG_report\\.txt\\.gz$", full.names = TRUE),
-                                         meta = openxlsx::read.xlsx("sample_info.xlsx",
-                                                                    colNames = TRUE) %>%
-                                           dplyr::mutate_if(is.character, as.factor),
+  bs.filtered <- processBismark(files = files,
+                                         meta = meta,
                                          testCovariate = testCovariate,
                                          adjustCovariate = adjustCovariate,
                                          matchCovariate = matchCovariate,
