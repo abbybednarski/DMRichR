@@ -146,8 +146,34 @@ DM.R <- function(genome = c("hg38", "hg19", "mm10", "mm9", "rheMac10",
 
   meta <- read.xlsx("sample_info.xlsx", colNames = TRUE) %>%
         mutate_if(is.character, as.factor)
+
+# Make a copy of the processBismark function and override file detection
+processBismark_safe <- DMRichR:::processBismark  # copy original
+
+processBismark_safe <- function(files, meta, testCovariate, adjustCovariate=NULL,
+                                matchCovariate=NULL, coverage=1, cores=1, perGroup=0.75,
+                                sexCheck=FALSE) {
+  # If files are provided, override internal detection
+  if (!is.null(files)) {
+    environment(processBismark_safe)$files <- files
+  }
+
+  setwd(dirname(files[1]))
   
-  bs.filtered <- processBismark(files = files,
+  # Call the original function
+  DMRichR:::processBismark( files = files,          # pass files explicitly
+    meta = meta,
+    testCovariate = testCovariate,
+    adjustCovariate = adjustCovariate,
+    matchCovariate = matchCovariate,
+    coverage = coverage,
+    cores = cores,
+    perGroup = perGroup,
+    sexCheck = sexCheck
+  )
+}
+  
+  bs.filtered <- processBismark_safe(files = files,
                                          meta = meta,
                                          testCovariate = testCovariate,
                                          adjustCovariate = adjustCovariate,
